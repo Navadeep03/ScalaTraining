@@ -1,3 +1,5 @@
+package ScalaTraining.src.scala
+
 import org.apache.spark.{SparkConf, SparkContext}
 
 object RDDJoin {
@@ -17,6 +19,8 @@ object RDDJoin {
     result.collect().foreach {
       case (id, name, score) => println(s"id: $id, name: $name, score: $score")
     }
+
+    println("Hello world")
 
     sc.stop()
   }

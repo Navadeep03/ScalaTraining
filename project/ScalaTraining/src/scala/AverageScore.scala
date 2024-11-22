@@ -1,3 +1,5 @@
+package ScalaTraining.src.scala
+
 import org.apache.spark.{SparkConf, SparkContext}
 
 object AverageScore {
