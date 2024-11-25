@@ -4,7 +4,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 object AverageScore {
   def main(args: Array[String]): Unit = {
-    val sc = new SparkContext(new SparkConf().setAppName("AverageScore").setMaster("local[*]"))
+    val sc = new SparkContext(new SparkConf().setAppName("AverageScore").setMaster("local[*]").set("spark.driver.host", "localhost")))
 
     val data = Seq((1, 85), (2, 90), (3, 78), (4, 88), (5, 92))
     val rdd = sc.parallelize(data)

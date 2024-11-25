@@ -4,7 +4,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 object FilterCSVByAge {
   def main(args: Array[String]): Unit = {
-    val sc = new SparkContext(new SparkConf().setAppName("FilterCSVByAge").setMaster("local[*]"))
+    val sc = new SparkContext(new SparkConf().setAppName("FilterCSVByAge").setMaster("local[*]").set("spark.driver.host", "localhost")))
 
     val csvData = Seq(
       "1,John,25",

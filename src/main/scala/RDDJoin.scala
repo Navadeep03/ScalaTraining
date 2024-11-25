@@ -4,7 +4,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 object RDDJoin {
   def main(args: Array[String]): Unit = {
-    val sc = new SparkContext(new SparkConf().setAppName("RDDJoinExample").setMaster("local[*]"))
+    val sc = new SparkContext(new SparkConf().setAppName("RDDJoinExample").setMaster("local[*]").set("spark.driver.host", "localhost")))
 
     val names = Seq((1, "Alice"), (2, "Bob"), (3, "Charlie"))
     val namesRDD = sc.parallelize(names)

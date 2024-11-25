@@ -4,7 +4,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 object CharacterFrequency {
   def main(args: Array[String]): Unit = {
-    val sc = new SparkContext(new SparkConf().setAppName("CharacterFrequency").setMaster("local[*]"))
+    val sc = new SparkContext(new SparkConf().setAppName("CharacterFrequency").setMaster("local[*]").set("spark.driver.host", "localhost")))
 
     sc.parallelize(Seq("Apache Spark", "is awesome", "and powerful"))
       .flatMap(_.replaceAll("\\s", "").toLowerCase)

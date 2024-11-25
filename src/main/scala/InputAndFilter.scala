@@ -5,7 +5,7 @@ import scala.io.StdIn
 
 object InputAndFilter {
   def main(args: Array[String]): Unit = {
-    val sc = new SparkContext(new SparkConf().setAppName("InputAndFilterRDD").setMaster("local[*]"))
+    val sc = new SparkContext(new SparkConf().setAppName("InputAndFilterRDD").setMaster("local[*]").set("spark.driver.host","localhost"))
 
     println("Enter the key to filter:")
     val inputKey = StdIn.readLine()

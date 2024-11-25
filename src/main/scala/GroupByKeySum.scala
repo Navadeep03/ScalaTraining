@@ -4,7 +4,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 object GroupByKeySum {
   def main(args: Array[String]): Unit = {
-    val sc = new SparkContext(new SparkConf().setAppName("GroupByKeySum").setMaster("local[*]"))
+    val sc = new SparkContext(new SparkConf().setAppName("GroupByKeySum").setMaster("local[*]").set("spark.driver.host", "localhost")))
 
     val rdd = sc.parallelize(Seq(
       ("a", 10),
