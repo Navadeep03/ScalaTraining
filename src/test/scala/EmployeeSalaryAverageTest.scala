@@ -1,6 +1,6 @@
 import org.apache.spark.sql.SparkSession
 import org.scalatest.funsuite.AnyFunSuite
-import EmployeeSalaryAverage.computeAverageSalaryByDepartment
+import main.day14.EmployeeSalaryAverage.computeAverageSalaryByDepartment
 
 class EmployeeSalaryAverageTest extends AnyFunSuite {
   val spark: SparkSession = SparkSession.builder()
