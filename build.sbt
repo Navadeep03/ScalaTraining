@@ -1,6 +1,5 @@
 ThisBuild / version := "0.1.0-SNAPSHOT"
-
-ThisBuild / scalaVersion := "2.12.13"
+ThisBuild / scalaVersion := "2.12.18" // Downgrade to Scala 2.12 for compatibility
 
 lazy val root = (project in file("."))
   .settings(
@@ -19,16 +18,20 @@ libraryDependencies ++= Seq(
 
   "com.typesafe.play" %% "play" % "2.8.18",
   "com.typesafe.play" %% "play-guice" % "2.8.18",
-  "com.typesafe.play" %% "play-json" % "2.8.18",
+  "com.typesafe.play" %% "play-json" % "2.9.4",
   "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test,
 
   "com.google.cloud.bigdataoss" % "gcs-connector" % "hadoop3-2.2.5",
   "mysql" % "mysql-connector-java" % "8.0.19",
-  "com.datastax.spark" %% "spark-cassandra-connector" % "3.0.1",
+  "com.datastax.spark" %% "spark-cassandra-connector" % "3.1.0", // Compatible with Scala 2.12
   "joda-time" % "joda-time" % "2.10.10",
   "com.github.jnr" % "jnr-posix" % "3.1.7",
 
   "org.scalatest" %% "scalatest" % "3.2.2" % Test
 )
 
-resolvers += "Typesafe Repository" at "https://repo.typesafe.com/typesafe/releases/"
+resolvers ++= Seq(
+  "Typesafe Repository" at "https://repo.typesafe.com/typesafe/releases/",
+  "Spark Packages Repo" at "https://repos.spark-packages.org/",
+  "Maven Central" at "https://repo1.maven.org/maven2/"
+)
