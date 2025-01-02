@@ -1,0 +1,6 @@
+id,name,category,price,stock
+1,Laptop,Electronics,1000.0,50
+2,Smartphone,Electronics,500.0,200
+3,Refrigerator,Appliances,800.0,30
+4,Washing Machine,Appliances,600.0,40
+5,Microwave,Appliances,150.0,70

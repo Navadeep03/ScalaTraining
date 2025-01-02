@@ -21,6 +21,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-json" % "2.9.4",
   "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test,
 
+  "org.mongodb.scala" %% "mongo-scala-driver" % "4.9.0",
+
   "com.google.cloud.bigdataoss" % "gcs-connector" % "hadoop3-2.2.5",
   "mysql" % "mysql-connector-java" % "8.0.19",
   "com.datastax.spark" %% "spark-cassandra-connector" % "3.1.0", // Compatible with Scala 2.12
