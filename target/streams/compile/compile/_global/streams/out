@@ -1,0 +1,38 @@
+[0m[[0m[31merror[0m] [0m[0m/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/src/main/scala/main/DayWiseTasks/Assignments/day11/Code/WithJWT/microservice1/ProducerApp.scala:19:57: not found: value jsonFormat3[0m
+[0m[[0m[31merror[0m] [0m[0m  implicit val messageFormat: RootJsonFormat[Message] = jsonFormat3(Message)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                        ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/src/main/scala/main/DayWiseTasks/Assignments/day11/Code/WithJWT/microservice1/ProducerApp.scala:20:71: not found: value jsonFormat2[0m
+[0m[[0m[31merror[0m] [0m[0m  implicit val processMessageFormat: RootJsonFormat[ProcessMessage] = jsonFormat2(ProcessMessage)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/src/main/scala/main/DayWiseTasks/Assignments/day11/Code/WithJWT/microservice1/ProducerApp.scala:85:22: could not find implicit value for parameter um: akka.http.scaladsl.unmarshalling.FromRequestUnmarshaller[main.DayWiseTasks.Assignments.day11.Code.WithJWT.microservice1.Message][0m
+[0m[[0m[31merror[0m] [0m[0m            entity(as[Message]) { message =>[0m
+[0m[[0m[31merror[0m] [0m[0m                     ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/src/main/scala/main/DayWiseTasks/Assignments/day11/Code/WithJWT/microservice1/ProducerApp.scala:65:16: Implicit definition should have explicit type (inferred akka.actor.ActorSystem) [quickfixable][0m
+[0m[[0m[33mwarn[0m] [0m[0m  implicit val system = ActorSystem("MessagingSystem")[0m
+[0m[[0m[33mwarn[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/src/main/scala/main/DayWiseTasks/Assignments/day11/Code/WithJWT/microservice2/ConsumerApp.scala:26:71: not found: value jsonFormat2[0m
+[0m[[0m[31merror[0m] [0m[0m  implicit val processMessageFormat: RootJsonFormat[ProcessMessage] = jsonFormat2(ProcessMessage)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                      ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/src/main/scala/main/DayWiseTasks/Assignments/day18_19/task3/KafkaProducer.scala:4:43: imported `KafkaProducer` is permanently hidden by definition of object KafkaProducer in package task3[0m
+[0m[[0m[33mwarn[0m] [0m[0mimport org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}[0m
+[0m[[0m[33mwarn[0m] [0m[0m                                          ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/src/main/scala/main/DayWiseTasks/Assignments/day18_19/task5/KafkaProducer.scala:3:43: imported `KafkaProducer` is permanently hidden by definition of object KafkaProducer in package task5[0m
+[0m[[0m[33mwarn[0m] [0m[0mimport org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}[0m
+[0m[[0m[33mwarn[0m] [0m[0m                                          ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/src/main/scala/main/DayWiseTasks/Assignments/day9/Code/services/microservice1/ProducerApp.scala:18:57: not found: value jsonFormat3[0m
+[0m[[0m[31merror[0m] [0m[0m  implicit val messageFormat: RootJsonFormat[Message] = jsonFormat3(Message)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                        ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/src/main/scala/main/DayWiseTasks/Assignments/day9/Code/services/microservice1/ProducerApp.scala:19:71: not found: value jsonFormat2[0m
+[0m[[0m[31merror[0m] [0m[0m  implicit val processMessageFormat: RootJsonFormat[ProcessMessage] = jsonFormat2(ProcessMessage)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/src/main/scala/main/DayWiseTasks/Assignments/day9/Code/services/microservice1/ProducerApp.scala:82:18: could not find implicit value for parameter um: akka.http.scaladsl.unmarshalling.FromRequestUnmarshaller[main.DayWiseTasks.Assignments.day9.Code.services.microservice1.Message][0m
+[0m[[0m[31merror[0m] [0m[0m        entity(as[Message]) { message =>[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/src/main/scala/main/DayWiseTasks/Assignments/day9/Code/services/microservice1/ProducerApp.scala:64:16: Implicit definition should have explicit type (inferred akka.actor.ActorSystem) [quickfixable][0m
+[0m[[0m[33mwarn[0m] [0m[0m  implicit val system = ActorSystem("MessagingSystem")[0m
+[0m[[0m[33mwarn[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/src/main/scala/main/DayWiseTasks/Assignments/day9/Code/services/microservice2/ConsumerApp.scala:26:71: not found: value jsonFormat2[0m
+[0m[[0m[31merror[0m] [0m[0m  implicit val processMessageFormat: RootJsonFormat[ProcessMessage] = jsonFormat2(ProcessMessage)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                      ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mfour warnings found[0m
+[0m[[0m[31merror[0m] [0m[0m8 errors found[0m
