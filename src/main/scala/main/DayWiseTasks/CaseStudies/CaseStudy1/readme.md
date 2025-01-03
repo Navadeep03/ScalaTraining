@@ -1,66 +1,84 @@
-<H2> Read me </H2>
+# Facility Management System (CaseStudy1)
 
-<H3>1. Problem Statement</H3>
+## 1. Problem Statement
 
-A Facility Management System is required to streamline room booking, guest management, and service coordination for a hotel. The system should ensure efficient booking, automated notifications, and service team interactions. Key requirements include:
+A **Facility Management System** is required to streamline room booking, guest management, and service coordination for a hotel. The system ensures efficient operations through automated notifications, real-time updates, and secure data handling.
 
-Room management for multiple categories (Deluxe, Luxury, Luxury Suite) across 10 floors.
-Automated notifications for room service, WiFi credentials, and restaurant menu updates.
-Real-time updates on room availability and booking history.
-Secure data handling for guest details and ID proof uploads.
-Integration of multiple microservices for efficient communication.
+### Key Features
+- Room management for multiple categories (Deluxe, Luxury, Luxury Suite) across 10 floors.
+- Automated notifications for room service, WiFi credentials, and restaurant menu updates.
+- Real-time updates on room availability and booking history.
+- Secure data handling for guest details and ID proof uploads.
+- Integration of microservices for efficient communication.
 
-<H3>2. Approach</H3>
+---
 
-The solution involves a modular architecture built on microservices and asynchronous communication to ensure scalability, reliability, and seamless operations. Key steps:
+## 2. Approach
 
-**Play Framework API:**
-Handles REST API requests for room bookings and guest management.
-Routes requests to the appropriate service.
+The system uses a modular microservices architecture with asynchronous communication to ensure scalability and reliability.
 
-**Akka Actor System:**
-Manages asynchronous tasks, including notifications and inter-service communication.
-Implements a NotificationService to handle automated email tasks.
+### **Key Components**
+1. **Play Framework API**:
+    - Handles REST API requests for room bookings and guest management.
+    - Routes requests to appropriate services.
 
-**Kafka Message Broker:**
-Ensures reliable message queuing between microservices.
-Topics like BookingNotifications and ServiceUpdates facilitate communication.
+2. **Akka Actor System**:
+    - Manages asynchronous tasks, including notifications and inter-service communication.
+    - Implements a `NotificationService` for automated email dispatch.
 
-**MongoDB Database:**
-Stores persistent data, including room availability, guest details, and booking history.
-Ensures secure handling of sensitive guest information.
+3. **Kafka Message Broker**:
+    - Ensures reliable message queuing between microservices.
+    - Topics like `BookingNotifications` and `ServiceUpdates` facilitate inter-service communication.
 
-**Microservices:**
-Room Booking Microservice for managing room availability.
-Email Notification Service for automated email dispatch.
+4. **MongoDB Database**:
+    - Stores persistent data, including room availability, guest details, and booking history.
+    - Secures sensitive guest information (e.g., ID proofs).
 
-<H3>3. Architecture</H3>
+5. **Microservices**:
+    - **Room Booking Service**: Manages room availability and booking history.
+    - **Email Notification Service**: Automates email dispatch to relevant teams.
 
-![Architecture Diagram](/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/resources/images/forProject/Screenshot 2025-01-03 at 12.25.12 PM.png)
+---
 
-<H3>4. Technologies</H3>
+## 3. Architecture
 
-* Backend Framework: Play Framework (Scala)
-* Messaging and Asynchronous Tasks: Akka Actor System
-* Message Broker: Kafka
-* Database: MongoDB
-* Build Tool: SBT
-* Containerization: Docker
-* Testing: ScalaTest
-* Email Notifications: Akka Email Actors
+The architecture ensures modularity and scalability with components for room booking, notifications, and data storage.
 
-<H3>5. Schema</H3>
+![Architecture Diagram](resources/images/forProject/Screenshot%202025-01-03%20at%2012.25.12%20PM.png)
 
-![ER Flow](/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/resources/images/forProject/Screenshot 2025-01-03 at 12.35.33 PM.png)
+---
 
-These are the schemas:
+## 4. Technologies
 
-![Schema](/Users/navadeep/Downloads/Projects/DayWiseProjects/ScalaTraining/resources/images/forProject/Screenshot 2025-01-03 at 12.37.17 PM.png)
+- **Backend Framework**: Play Framework (Scala)
+- **Messaging and Asynchronous Tasks**: Akka Actor System
+- **Message Broker**: Kafka
+- **Database**: MongoDB
+- **Build Tool**: SBT
+- **Containerization**: Docker
+- **Testing**: ScalaTest
+- **Email Notifications**: Akka Email Actors
 
+---
 
-**Kafka Topics**
+## 5. Schema
 
-BookingNotifications:
-* Publishes notifications related to bookings.
-ServiceUpdates:
-* Sends updates to room service, WiFi, and restaurant teams.
+The data schema captures essential information for rooms, guests, and notifications, ensuring consistency and security.
+
+### **Entity Relationship (ER) Diagram**
+![ER Diagram](resources/images/forProject/Screenshot%202025-01-03%20at%2012.35.33%20PM.png)
+
+### **Schemas**
+![Schema Details](resources/images/forProject/Screenshot%202025-01-03%20at%2012.37.17%20PM.png)
+
+---
+
+## Kafka Topics
+
+1. **BookingNotifications**:
+    - Publishes notifications related to bookings.
+
+2. **ServiceUpdates**:
+    - Sends updates to room service, WiFi, and restaurant teams.
+
+---
