@@ -1,0 +1,64 @@
+{
+    "bookings": [
+        {
+            "_id": "1",
+            "guestId": "101",
+            "roomId": "201",
+            "checkInDate": "2025-01-06",
+            "checkOutDate": "2025-01-07",
+            "status": "Confirmed"
+        },
+        {
+            "_id": "2",
+            "guestId": "102",
+            "roomId": "202",
+            "checkInDate": "2025-01-08",
+            "checkOutDate": "2025-01-10",
+            "status": "Pending"
+        }
+    ],
+    "guests": [
+        {
+            "_id": "101",
+            "name": "John Doe",
+            "contact": "1234567890",
+            "email": "john.doe@example.com"
+        },
+        {
+            "_id": "102",
+            "name": "Jane Smith",
+            "contact": "9876543210",
+            "email": "jane.smith@example.com"
+        }
+    ],
+    "notifications": [
+        {
+            "_id": "301",
+            "recipient": "John Doe",
+            "message": "Your booking is confirmed.",
+            "timestamp": "2025-01-05T10:00:00Z",
+            "status": "Sent"
+        },
+        {
+            "_id": "302",
+            "recipient": "Jane Smith",
+            "message": "Your room is ready.",
+            "timestamp": "2025-01-06T09:30:00Z",
+            "status": "Pending"
+        }
+    ],
+    "rooms": [
+        {
+            "_id": "201",
+            "type": "Deluxe",
+            "status": "Available",
+            "price": 150
+        },
+        {
+            "_id": "202",
+            "type": "Suite",
+            "status": "Occupied",
+            "price": 250
+        }
+    ]
+}

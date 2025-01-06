@@ -1,0 +1,36 @@
+ {
+    "visitors": [
+        {
+            "_id": "1",
+            "name": "John Doe",
+            "contactNumber": "1234567890",
+            "purpose": "Meeting",
+            "checkInTime": "2025-01-06T10:00:00Z",
+            "checkOutTime": null
+        },
+        {
+            "_id": "2",
+            "name": "Jane Smith",
+            "contactNumber": "0987654321",
+            "purpose": "Interview",
+            "checkInTime": "2025-01-06T09:30:00Z",
+            "checkOutTime": "2025-01-06T10:30:00Z"
+        }
+    ],
+    "notifications": [
+        {
+            "_id": "1",
+            "recipient": "John Doe",
+            "message": "Your meeting is scheduled at 10:00 AM.",
+            "timestamp": "2025-01-06T09:00:00Z",
+            "status": "Sent"
+        },
+        {
+            "_id": "2",
+            "recipient": "Jane Smith",
+            "message": "Your interview is scheduled at 9:30 AM.",
+            "timestamp": "2025-01-06T08:30:00Z",
+            "status": "Sent"
+        }
+    ]
+}

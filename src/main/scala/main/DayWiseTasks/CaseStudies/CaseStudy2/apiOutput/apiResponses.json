@@ -1,0 +1,127 @@
+{
+    "getAllVisitors": {
+        "method": "GET",
+        "url": "/visitors",
+        "response": [
+            {
+                "_id": "1",
+                "name": "John Doe",
+                "contactNumber": "1234567890",
+                "purpose": "Meeting",
+                "checkInTime": "2025-01-06T10:00:00Z",
+                "checkOutTime": null
+            },
+            {
+                "_id": "2",
+                "name": "Jane Smith",
+                "contactNumber": "0987654321",
+                "purpose": "Interview",
+                "checkInTime": "2025-01-06T09:30:00Z",
+                "checkOutTime": "2025-01-06T10:30:00Z"
+            }
+        ]
+    },
+    "getVisitorById": {
+        "method": "GET",
+        "url": "/visitors/{visitorId}",
+        "example_url": "/visitors/1",
+        "response": {
+            "_id": "1",
+            "name": "John Doe",
+            "contactNumber": "1234567890",
+            "purpose": "Meeting",
+            "checkInTime": "2025-01-06T10:00:00Z",
+            "checkOutTime": null
+        }
+    },
+    "addVisitor": {
+        "method": "POST",
+        "url": "/visitors",
+        "request": {
+            "_id": "3",
+            "name": "Alice Johnson",
+            "contactNumber": "9876543210",
+            "purpose": "Consultation",
+            "checkInTime": "2025-01-06T11:00:00Z"
+        },
+        "response": {
+            "message": "Visitor Alice Johnson added successfully."
+        }
+    },
+    "updateVisitor": {
+        "method": "PUT",
+        "url": "/visitors/{visitorId}",
+        "example_url": "/visitors/1",
+        "request": {
+            "name": "John Doe Updated",
+            "contactNumber": "1234567890",
+            "purpose": "Updated Meeting",
+            "checkOutTime": "2025-01-06T11:00:00Z"
+        },
+        "response": {
+            "message": "Visitor with ID 1 updated successfully."
+        }
+    },
+    "deleteVisitor": {
+        "method": "DELETE",
+        "url": "/visitors/{visitorId}",
+        "example_url": "/visitors/1",
+        "response": {
+            "message": "Visitor with ID 1 deleted successfully."
+        }
+    },
+    "getAllNotifications": {
+        "method": "GET",
+        "url": "/notifications",
+        "response": [
+            {
+                "_id": "1",
+                "recipient": "John Doe",
+                "message": "Your meeting is scheduled at 10:00 AM.",
+                "timestamp": "2025-01-06T09:00:00Z",
+                "status": "Sent"
+            },
+            {
+                "_id": "2",
+                "recipient": "Jane Smith",
+                "message": "Your interview is scheduled at 9:30 AM.",
+                "timestamp": "2025-01-06T08:30:00Z",
+                "status": "Sent"
+            }
+        ]
+    },
+    "getNotificationById": {
+        "method": "GET",
+        "url": "/notifications/{notificationId}",
+        "example_url": "/notifications/1",
+        "response": {
+            "_id": "1",
+            "recipient": "John Doe",
+            "message": "Your meeting is scheduled at 10:00 AM.",
+            "timestamp": "2025-01-06T09:00:00Z",
+            "status": "Sent"
+        }
+    },
+    "sendNotification": {
+        "method": "POST",
+        "url": "/notifications",
+        "request": {
+            "_id": "3",
+            "recipient": "Alice Johnson",
+            "message": "Your consultation is scheduled at 11:00 AM.",
+            "timestamp": "2025-01-06T10:30:00Z",
+            "status": "Sent"
+        },
+        "response": {
+            "message": "Notification sent successfully to Alice Johnson."
+        }
+    },
+    "deleteNotification": {
+        "method": "DELETE",
+        "url": "/notifications/{notificationId}",
+        "example_url": "/notifications/1",
+        "response": {
+            "message": "Notification with ID 1 deleted successfully."
+        }
+    }
+}

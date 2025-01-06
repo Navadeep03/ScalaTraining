@@ -1,0 +1,86 @@
+{
+    "booking": {
+        "getAllBookings": [
+            {
+                "id": "1",
+                "guestId": "101",
+                "roomId": "201",
+                "checkInDate": "2025-01-06",
+                "checkOutDate": "2025-01-07",
+                "status": "Confirmed"
+            }
+        ],
+        "getBookingById": {
+            "id": "1",
+            "guestId": "101",
+            "roomId": "201",
+            "checkInDate": "2025-01-06",
+            "checkOutDate": "2025-01-07",
+            "status": "Confirmed"
+        },
+        "createBooking": {
+            "message": "Booking created successfully"
+        },
+        "deleteBooking": {
+            "message": "Booking canceled"
+        }
+    },
+    "guest": {
+        "getAllGuests": [
+            {
+                "id": "101",
+                "name": "John Doe",
+                "contact": "1234567890",
+                "email": "john.doe@example.com"
+            }
+        ],
+        "getGuestById": {
+            "id": "101",
+            "name": "John Doe",
+            "contact": "1234567890",
+            "email": "john.doe@example.com"
+        },
+        "addGuest": {
+            "message": "Guest added successfully"
+        },
+        "deleteGuest": {
+            "message": "Guest deleted"
+        }
+    },
+    "notification": {
+        "getAllNotifications": [
+            {
+                "id": "301",
+                "recipient": "John Doe",
+                "message": "Your booking is confirmed.",
+                "timestamp": "2025-01-05T10:00:00Z",
+                "status": "Sent"
+            }
+        ],
+        "sendNotification": {
+            "message": "Notification sent"
+        }
+    },
+    "room": {
+        "getAllRooms": [
+            {
+                "id": "201",
+                "type": "Deluxe",
+                "status": "Available",
+                "price": 150
+            }
+        ],
+        "getRoomById": {
+            "id": "201",
+            "type": "Deluxe",
+            "status": "Available",
+            "price": 150
+        },
+        "addRoom": {
+            "message": "Room added successfully"
+        },
+        "deleteRoom": {
+            "message": "Room deleted"
+        }
+    }
+}
