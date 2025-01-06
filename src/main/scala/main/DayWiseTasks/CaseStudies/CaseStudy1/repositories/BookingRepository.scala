@@ -1,30 +1,19 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.repositories
 
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Booking.Booking
-
+import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Booking
 import scala.collection.mutable
 
-object BookingRepository {
-  private val bookings = mutable.ListBuffer[Booking]()
+class BookingRepository {
 
-  def getAllBookings: List[Booking] = bookings.toList
+  private val bookings = mutable.Map[String, Booking]()
 
-  def getBookingById(bookingId: String): Option[Booking] = bookings.find(_.bookingId == bookingId)
+  def findAll(): Seq[Booking] = bookings.values.toSeq
 
-  def addBooking(booking: Booking): Unit = bookings += booking
+  def findById(id: String): Option[Booking] = bookings.get(id)
 
-  def updateBooking(bookingId: String, updatedBooking: Booking): Boolean = {
-    getBookingById(bookingId).exists { booking =>
-      bookings -= booking
-      bookings += updatedBooking
-      true
-    }
-  }
+  def save(booking: Booking): Unit = bookings.put(booking.id, booking)
 
-  def deleteBooking(bookingId: String): Boolean = {
-    getBookingById(bookingId).exists { booking =>
-      bookings -= booking
-      true
-    }
-  }
+  def update(id: String, updatedBooking: Booking): Unit = bookings.update(id, updatedBooking)
+
+  def delete(id: String): Boolean = bookings.remove(id).isDefined
 }

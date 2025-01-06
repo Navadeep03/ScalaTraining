@@ -1,30 +1,19 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.repositories
 
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Guest.Guest
-
+import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Guest
 import scala.collection.mutable
 
-object GuestRepository {
-  private val guests = mutable.ListBuffer[Guest]()
+class GuestRepository {
 
-  def getAllGuests: List[Guest] = guests.toList
+  private val guests = mutable.Map[String, Guest]()
 
-  def getGuestById(guestId: String): Option[Guest] = guests.find(_.guestId == guestId)
+  def findAll(): Seq[Guest] = guests.values.toSeq
 
-  def addGuest(guest: Guest): Unit = guests += guest
+  def findById(id: String): Option[Guest] = guests.get(id)
 
-  def updateGuest(guestId: String, updatedGuest: Guest): Boolean = {
-    getGuestById(guestId).exists { guest =>
-      guests -= guest
-      guests += updatedGuest
-      true
-    }
-  }
+  def save(guest: Guest): Unit = guests.put(guest.id, guest)
 
-  def deleteGuest(guestId: String): Boolean = {
-    getGuestById(guestId).exists { guest =>
-      guests -= guest
-      true
-    }
-  }
+  def update(id: String, updatedGuest: Guest): Unit = guests.update(id, updatedGuest)
+
+  def delete(id: String): Boolean = guests.remove(id).isDefined
 }

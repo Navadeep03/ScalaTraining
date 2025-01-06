@@ -1,17 +1,18 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.services
 
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Booking.Booking
+import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Booking
 import main.DayWiseTasks.CaseStudies.CaseStudy1.repositories.BookingRepository
+import javax.inject.Inject
 
-object BookingService {
-  def getAllBookings(): List[Booking] = BookingRepository.getAllBookings
+class BookingService @Inject()(bookingRepository: BookingRepository) {
 
-  def getBookingById(bookingId: String): Option[Booking] = BookingRepository.getBookingById(bookingId)
+  def getAllBookings(): Seq[Booking] = bookingRepository.findAll()
 
-  def createBooking(booking: Booking): Unit = BookingRepository.addBooking(booking)
+  def getBookingById(id: String): Option[Booking] = bookingRepository.findById(id)
 
-  def updateBooking(bookingId: String, updatedBooking: Booking): Boolean =
-    BookingRepository.updateBooking(bookingId, updatedBooking)
+  def createBooking(booking: Booking): Unit = bookingRepository.save(booking)
 
-  def cancelBooking(bookingId: String): Boolean = BookingRepository.deleteBooking(bookingId)
+  def updateBooking(id: String, updatedBooking: Booking): Unit = bookingRepository.update(id, updatedBooking)
+
+  def cancelBooking(id: String): Boolean = bookingRepository.delete(id)
 }

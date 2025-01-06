@@ -1,14 +1,26 @@
-package main.DayWiseTasks.CaseStudies.CaseStudy2.services
+package services
 
-import main.DayWiseTasks.CaseStudies.CaseStudy2.models.Notification.Notification
-import main.DayWiseTasks.CaseStudies.CaseStudy2.repositories.NotificationRepository
+import repositories.NotificationRepository
+import models.Notification
 
-object NotificationService {
-  def getAllNotifications: List[Notification] = NotificationRepository.getAllNotifications
+class NotificationService(notificationRepository: NotificationRepository) {
 
-  def getNotificationById(notificationId: String): Option[Notification] = NotificationRepository.getNotificationById(notificationId)
+  def sendNotification(notification: Notification): Unit = {
+    if (notification.message.isEmpty || notification.recipient.isEmpty) {
+      throw new IllegalArgumentException("Message and recipient are required.")
+    }
+    notificationRepository.saveNotification(notification)
+  }
 
-  def sendNotification(notification: Notification): Unit = NotificationRepository.addNotification(notification)
+  def getAllNotifications(): List[Notification] = {
+    notificationRepository.getAllNotifications()
+  }
 
-  def deleteNotification(notificationId: String): Boolean = NotificationRepository.deleteNotification(notificationId)
+  def getNotificationById(id: String): Option[Notification] = {
+    notificationRepository.getNotificationById(id)
+  }
+
+  def deleteNotification(id: String): Unit = {
+    notificationRepository.deleteNotification(id)
+  }
 }

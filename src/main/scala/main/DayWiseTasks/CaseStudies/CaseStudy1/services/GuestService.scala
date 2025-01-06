@@ -1,17 +1,18 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.services
 
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Guest.Guest
+import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Guest
 import main.DayWiseTasks.CaseStudies.CaseStudy1.repositories.GuestRepository
+import javax.inject.Inject
 
-object GuestService {
-  def getAllGuests(): List[Guest] = GuestRepository.getAllGuests
+class GuestService @Inject()(guestRepository: GuestRepository) {
 
-  def getGuestById(guestId: String): Option[Guest] = GuestRepository.getGuestById(guestId)
+  def getAllGuests(): Seq[Guest] = guestRepository.findAll()
 
-  def addGuest(guest: Guest): Unit = GuestRepository.addGuest(guest)
+  def getGuestById(id: String): Option[Guest] = guestRepository.findById(id)
 
-  def updateGuest(guestId: String, updatedGuest: Guest): Boolean =
-    GuestRepository.updateGuest(guestId, updatedGuest)
+  def addGuest(guest: Guest): Unit = guestRepository.save(guest)
 
-  def deleteGuest(guestId: String): Boolean = GuestRepository.deleteGuest(guestId)
+  def updateGuest(id: String, updatedGuest: Guest): Unit = guestRepository.update(id, updatedGuest)
+
+  def deleteGuest(id: String): Boolean = guestRepository.delete(id)
 }

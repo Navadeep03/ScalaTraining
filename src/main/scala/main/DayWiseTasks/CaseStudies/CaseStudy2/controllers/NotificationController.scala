@@ -1,43 +1,25 @@
-package main.DayWiseTasks.CaseStudies.CaseStudy2.controllers
+package controllers
 
-import play.api.mvc._
-import play.api.libs.json._
-import main.DayWiseTasks.CaseStudies.CaseStudy2.models.Notification.Notification
-import main.DayWiseTasks.CaseStudies.CaseStudy2.services.NotificationService
+import services.NotificationService
+import models.Notification
 
-object NotificationController extends BaseController {
-  private val controllerComponents: ControllerComponents = stubControllerComponents()
+class NotificationController(notificationService: NotificationService) {
 
-  override protected def controllerComponents: ControllerComponents = controllerComponents
-
-  // Get all notifications
-  def getAllNotifications(): Action[AnyContent] = Action {
-    val notifications = NotificationService.getAllNotifications()
-    Ok(Json.toJson(notifications))
+  def sendNotification(notification: Notification): String = {
+    notificationService.sendNotification(notification)
+    s"Notification sent to ${notification.recipient}."
   }
 
-  // Get a specific notification by ID
-  def getNotification(notificationId: String): Action[AnyContent] = Action {
-    NotificationService.getNotificationById(notificationId) match {
-      case Some(notification) => Ok(Json.toJson(notification))
-      case None               => NotFound(Json.obj("error" -> "Notification not found"))
-    }
+  def getAllNotifications(): List[Notification] = {
+    notificationService.getAllNotifications()
   }
 
-  // Send a notification
-  def sendNotification(): Action[JsValue] = Action(parse.json) { request =>
-    request.body.validate[Notification].fold(
-      errors => BadRequest(Json.obj("error" -> "Invalid notification data")),
-      notification => {
-        NotificationService.sendNotification(notification)
-        Created(Json.obj("message" -> "Notification sent successfully"))
-      }
-    )
+  def getNotificationById(id: String): Option[Notification] = {
+    notificationService.getNotificationById(id)
   }
 
-  // Delete a notification
-  def deleteNotification(notificationId: String): Action[AnyContent] = Action {
-    if (NotificationService.deleteNotification(notificationId)) Ok(Json.obj("message" -> "Notification deleted successfully"))
-    else NotFound(Json.obj("error" -> "Notification not found"))
+  def deleteNotification(id: String): String = {
+    notificationService.deleteNotification(id)
+    s"Notification with ID $id deleted successfully."
   }
 }

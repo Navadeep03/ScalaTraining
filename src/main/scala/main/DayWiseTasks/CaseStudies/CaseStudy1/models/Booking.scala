@@ -2,14 +2,15 @@ package main.DayWiseTasks.CaseStudies.CaseStudy1.models
 
 import play.api.libs.json._
 
-object Booking {
-  case class Booking(
-                      bookingId: String,
-                      guestId: String,
-                      roomId: String,
-                      checkInDate: String,
-                      checkOutDate: String
-                    )
+case class Booking(
+                    id: String,
+                    roomId: String,
+                    guestId: String,
+                    startDate: String, // YYYY-MM-DD
+                    endDate: String,   // YYYY-MM-DD
+                    status: String     // e.g., "Booked", "CheckedIn", "CheckedOut", "Cancelled"
+                  )
 
-  implicit val bookingFormat: OFormat[Booking] = Json.format[Booking]
+object Booking {
+  implicit val format: OFormat[Booking] = Json.format[Booking]
 }

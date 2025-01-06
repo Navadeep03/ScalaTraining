@@ -1,30 +1,19 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.repositories
 
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Room.Room
-
+import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Room
 import scala.collection.mutable
 
-object RoomRepository {
-  private val rooms = mutable.ListBuffer[Room]()
+class RoomRepository {
 
-  def getAllRooms: List[Room] = rooms.toList
+  private val rooms = mutable.Map[String, Room]()
 
-  def getRoomById(roomId: String): Option[Room] = rooms.find(_.roomId == roomId)
+  def findAll(): Seq[Room] = rooms.values.toSeq
 
-  def addRoom(room: Room): Unit = rooms += room
+  def findById(id: String): Option[Room] = rooms.get(id)
 
-  def updateRoom(roomId: String, updatedRoom: Room): Boolean = {
-    getRoomById(roomId).exists { room =>
-      rooms -= room
-      rooms += updatedRoom
-      true
-    }
-  }
+  def save(room: Room): Unit = rooms.put(room.id, room)
 
-  def deleteRoom(roomId: String): Boolean = {
-    getRoomById(roomId).exists { room =>
-      rooms -= room
-      true
-    }
-  }
+  def update(id: String, updatedRoom: Room): Unit = rooms.update(id, updatedRoom)
+
+  def delete(id: String): Boolean = rooms.remove(id).isDefined
 }

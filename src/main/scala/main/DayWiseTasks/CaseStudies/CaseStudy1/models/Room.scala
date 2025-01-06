@@ -2,13 +2,14 @@ package main.DayWiseTasks.CaseStudies.CaseStudy1.models
 
 import play.api.libs.json._
 
-object Room {
-  case class Room(
-                   roomId: String,
-                   roomType: String,
-                   availability: Boolean,
-                   floorNumber: Int
-                 )
+case class Room(
+                 id: String,
+                 roomNumber: String,
+                 roomType: String, // e.g., "Deluxe", "Luxury", "Suite"
+                 floor: Int,
+                 isAvailable: Boolean
+               )
 
-  implicit val roomFormat: OFormat[Room] = Json.format[Room]
+object Room {
+  implicit val format: OFormat[Room] = Json.format[Room]
 }

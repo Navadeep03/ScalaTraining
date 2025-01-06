@@ -1,22 +1,25 @@
-package main.DayWiseTasks.CaseStudies.CaseStudy2.repositories
+package repositories
 
-import main.DayWiseTasks.CaseStudies.CaseStudy2.models.Notification.Notification
-
+import models.Notification
 import scala.collection.mutable
 
-object NotificationRepository {
-  private val notifications = mutable.ListBuffer[Notification]()
+class NotificationRepository {
 
-  def getAllNotifications: List[Notification] = notifications.toList
+  private val notifications = mutable.Map[String, Notification]()
 
-  def getNotificationById(notificationId: String): Option[Notification] = notifications.find(_.notificationId == notificationId)
+  def saveNotification(notification: Notification): Unit = {
+    notifications(notification.id) = notification
+  }
 
-  def addNotification(notification: Notification): Unit = notifications += notification
+  def getAllNotifications(): List[Notification] = {
+    notifications.values.toList
+  }
 
-  def deleteNotification(notificationId: String): Boolean = {
-    getNotificationById(notificationId).exists { notification =>
-      notifications -= notification
-      true
-    }
+  def getNotificationById(id: String): Option[Notification] = {
+    notifications.get(id)
+  }
+
+  def deleteNotification(id: String): Unit = {
+    notifications.remove(id)
   }
 }

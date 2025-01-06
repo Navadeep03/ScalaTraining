@@ -1,19 +1,30 @@
-package main.DayWiseTasks.CaseStudies.CaseStudy2.services
+package services
 
-import main.DayWiseTasks.CaseStudies.CaseStudy2.models.Visitor.Visitor
-import main.DayWiseTasks.CaseStudies.CaseStudy2.repositories.VisitorRepository
+import repositories.VisitorRepository
+import models.Visitor
 
-object VisitorService {
-  def getAllVisitors(): List[Visitor] = VisitorRepository.getAllVisitors
+class VisitorService(visitorRepository: VisitorRepository) {
 
-  def getVisitorById(visitorId: String): Option[Visitor] = VisitorRepository.getVisitorById(visitorId)
+  def addVisitor(visitor: Visitor): Unit = {
+    if (visitor.name.isEmpty || visitor.contactNumber.isEmpty) {
+      throw new IllegalArgumentException("Name and contact number are required.")
+    }
+    visitorRepository.addVisitor(visitor)
+  }
 
-  def addVisitor(visitor: Visitor): Unit = VisitorRepository.addVisitor(visitor)
+  def getAllVisitors(): List[Visitor] = {
+    visitorRepository.getAllVisitors()
+  }
 
-  def updateVisitor(visitorId: String, updatedVisitor: Visitor): Boolean =
-    VisitorRepository.updateVisitor(visitorId, updatedVisitor)
+  def getVisitorById(id: String): Option[Visitor] = {
+    visitorRepository.getVisitorById(id)
+  }
 
-  def checkOutVisitor(visitorId: String): Boolean = VisitorRepository.checkOutVisitor(visitorId)
+  def updateVisitor(id: String, updatedVisitor: Visitor): Unit = {
+    visitorRepository.updateVisitor(id, updatedVisitor)
+  }
 
-  def deleteVisitor(visitorId: String): Boolean = VisitorRepository.deleteVisitor(visitorId)
+  def deleteVisitor(id: String): Unit = {
+    visitorRepository.deleteVisitor(id)
+  }
 }

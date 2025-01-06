@@ -1,17 +1,18 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.services
 
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Room.Room
+import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Room
 import main.DayWiseTasks.CaseStudies.CaseStudy1.repositories.RoomRepository
+import javax.inject.Inject
 
-object RoomService {
-  def getAllRooms(): List[Room] = RoomRepository.getAllRooms
+class RoomService @Inject()(roomRepository: RoomRepository) {
 
-  def getRoomById(roomId: String): Option[Room] = RoomRepository.getRoomById(roomId)
+  def getAllRooms(): Seq[Room] = roomRepository.findAll()
 
-  def addRoom(room: Room): Unit = RoomRepository.addRoom(room)
+  def getRoomById(id: String): Option[Room] = roomRepository.findById(id)
 
-  def updateRoom(roomId: String, updatedRoom: Room): Boolean =
-    RoomRepository.updateRoom(roomId, updatedRoom)
+  def addRoom(room: Room): Unit = roomRepository.save(room)
 
-  def deleteRoom(roomId: String): Boolean = RoomRepository.deleteRoom(roomId)
+  def updateRoom(id: String, updatedRoom: Room): Unit = roomRepository.update(id, updatedRoom)
+
+  def deleteRoom(id: String): Boolean = roomRepository.delete(id)
 }

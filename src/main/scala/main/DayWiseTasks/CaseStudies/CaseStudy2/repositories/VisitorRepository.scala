@@ -1,39 +1,33 @@
-package main.DayWiseTasks.CaseStudies.CaseStudy2.repositories
+package repositories
 
-import main.DayWiseTasks.CaseStudies.CaseStudy2.models.Visitor.Visitor
-
+import models.Visitor
 import scala.collection.mutable
 
-object VisitorRepository {
-  private val visitors = mutable.ListBuffer[Visitor]()
+class VisitorRepository {
 
-  def getAllVisitors: List[Visitor] = visitors.toList
+  private val visitors = mutable.Map[String, Visitor]()
 
-  def getVisitorById(visitorId: String): Option[Visitor] = visitors.find(_.visitorId == visitorId)
+  def addVisitor(visitor: Visitor): Unit = {
+    visitors(visitor.id) = visitor
+  }
 
-  def addVisitor(visitor: Visitor): Unit = visitors += visitor
+  def getAllVisitors(): List[Visitor] = {
+    visitors.values.toList
+  }
 
-  def updateVisitor(visitorId: String, updatedVisitor: Visitor): Boolean = {
-    getVisitorById(visitorId).exists { visitor =>
-      visitors -= visitor
-      visitors += updatedVisitor
-      true
+  def getVisitorById(id: String): Option[Visitor] = {
+    visitors.get(id)
+  }
+
+  def updateVisitor(id: String, updatedVisitor: Visitor): Unit = {
+    if (visitors.contains(id)) {
+      visitors(id) = updatedVisitor
+    } else {
+      throw new NoSuchElementException(s"Visitor with ID $id not found.")
     }
   }
 
-  def checkOutVisitor(visitorId: String): Boolean = {
-    getVisitorById(visitorId).exists { visitor =>
-      val updatedVisitor = visitor.copy(checkOutTime = Some(java.time.Instant.now.toString))
-      visitors -= visitor
-      visitors += updatedVisitor
-      true
-    }
-  }
-
-  def deleteVisitor(visitorId: String): Boolean = {
-    getVisitorById(visitorId).exists { visitor =>
-      visitors -= visitor
-      true
-    }
+  def deleteVisitor(id: String): Unit = {
+    visitors.remove(id)
   }
 }
