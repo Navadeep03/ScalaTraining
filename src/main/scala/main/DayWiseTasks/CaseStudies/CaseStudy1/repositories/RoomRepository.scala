@@ -1,30 +1,31 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.repositories
 
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Room.Room
+import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Room
 
-import scala.collection.mutable
+import javax.inject._
+import org.mongodb.scala._
+import org.mongodb.scala.model.Filters._
 
-object RoomRepository {
-  private val rooms = mutable.ListBuffer[Room]()
+import scala.concurrent.{ExecutionContext, Future}
 
-  def getAllRooms: List[Room] = rooms.toList
+@Singleton
+class RoomRepository @Inject()(mongoClient: MongoClient)(implicit ec: ExecutionContext) {
+  private val database: MongoDatabase = mongoClient.getDatabase("FacilityDB")
+  private val collection: MongoCollection[Room] = database.getCollection("rooms")
 
-  def getRoomById(roomId: String): Option[Room] = rooms.find(_.roomId == roomId)
-
-  def addRoom(room: Room): Unit = rooms += room
-
-  def updateRoom(roomId: String, updatedRoom: Room): Boolean = {
-    getRoomById(roomId).exists { room =>
-      rooms -= room
-      rooms += updatedRoom
-      true
-    }
+  def getAllRooms: Future[Seq[Room]] = {
+    collection.find().toFuture()
   }
 
-  def deleteRoom(roomId: String): Boolean = {
-    getRoomById(roomId).exists { room =>
-      rooms -= room
-      true
-    }
+  def getRoomById(id: String): Future[Option[Room]] = {
+    collection.find(equal("id", id)).headOption()
+  }
+
+  def addRoom(room: Room): Future[Unit] = {
+    collection.insertOne(room).toFuture().map(_ => ())
+  }
+
+  def deleteRoom(id: String): Future[Boolean] = {
+    collection.deleteOne(equal("id", id)).toFuture().map(_.wasAcknowledged())
   }
 }

@@ -1,39 +1,43 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.controllers
 
+import main.DayWiseTasks.CaseStudies.FacilityManagement.models.Guest.Guest
+import main.DayWiseTasks.CaseStudies.FacilityManagement.services.GuestService
 import play.api.mvc._
 import play.api.libs.json._
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Guest.Guest
-import main.DayWiseTasks.CaseStudies.CaseStudy1.services.GuestService
 
-object GuestController extends BaseController {
-  private val controllerComponents: ControllerComponents = stubControllerComponents()
+import javax.inject._
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
-  override protected def controllerComponents: ControllerComponents = controllerComponents
+@Singleton
+class GuestController @Inject()(cc: ControllerComponents, guestService: GuestService) extends AbstractController(cc) {
 
-  def getAllGuests(): Action[AnyContent] = Action {
-    val guests = GuestService.getAllGuests()
-    Ok(Json.toJson(guests))
-  }
-
-  def getGuest(guestId: String): Action[AnyContent] = Action {
-    GuestService.getGuestById(guestId) match {
-      case Some(guest) => Ok(Json.toJson(guest))
-      case None        => NotFound(Json.obj("error" -> "Guest not found"))
+  def getAllGuests: Action[AnyContent] = Action.async {
+    guestService.getAllGuests.map { guests =>
+      Ok(Json.toJson(guests))
     }
   }
 
-  def addGuest(): Action[JsValue] = Action(parse.json) { request =>
+  def getGuestById(id: String): Action[AnyContent] = Action.async {
+    guestService.getGuestById(id).map {
+      case Some(guest) => Ok(Json.toJson(guest))
+      case None => NotFound(Json.obj("error" -> "Guest not found"))
+    }
+  }
+
+  def addGuest: Action[JsValue] = Action.async(parse.json) { request =>
     request.body.validate[Guest].fold(
-      errors => BadRequest(Json.obj("error" -> "Invalid guest data")),
-      guest => {
-        GuestService.addGuest(guest)
-        Created(Json.obj("message" -> "Guest added successfully"))
+      errors => Future.successful(BadRequest(Json.obj("error" -> "Invalid data"))),
+      guest => guestService.addGuest(guest).map { _ =>
+        Created(Json.obj("message" -> "Guest added"))
       }
     )
   }
 
-  def deleteGuest(guestId: String): Action[AnyContent] = Action {
-    if (GuestService.deleteGuest(guestId)) Ok(Json.obj("message" -> "Guest deleted"))
-    else NotFound(Json.obj("error" -> "Guest not found"))
+  def deleteGuest(id: String): Action[AnyContent] = Action.async {
+    guestService.deleteGuest(id).map {
+      case true => Ok(Json.obj("message" -> "Guest deleted"))
+      case false => NotFound(Json.obj("error" -> "Guest not found"))
+    }
   }
 }

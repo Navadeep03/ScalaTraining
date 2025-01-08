@@ -1,13 +1,23 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.repositories
 
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Notification.Notification
+import main.DayWiseTasks.CaseStudies.CaseStudy2.models.Notification.Notification
 
-import scala.collection.mutable
+import javax.inject._
+import org.mongodb.scala._
+import org.mongodb.scala.model.Filters._
 
-object NotificationRepository {
-  private val notifications = mutable.ListBuffer[Notification]()
+import scala.concurrent.{ExecutionContext, Future}
 
-  def getAllNotifications: List[Notification] = notifications.toList
+@Singleton
+class NotificationRepository @Inject()(mongoClient: MongoClient)(implicit ec: ExecutionContext) {
+  private val database: MongoDatabase = mongoClient.getDatabase("FacilityDB")
+  private val collection: MongoCollection[Notification] = database.getCollection("notifications")
 
-  def addNotification(notification: Notification): Unit = notifications += notification
+  def getAllNotifications: Future[Seq[Notification]] = {
+    collection.find().toFuture()
+  }
+
+  def saveNotification(notification: Notification): Future[Unit] = {
+    collection.insertOne(notification).toFuture().map(_ => ())
+  }
 }

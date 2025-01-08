@@ -1,39 +1,43 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.controllers
 
+import main.DayWiseTasks.CaseStudies.FacilityManagement.models.Booking
+import main.DayWiseTasks.CaseStudies.FacilityManagement.services.BookingService
 import play.api.mvc._
 import play.api.libs.json._
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Booking.Booking
-import main.DayWiseTasks.CaseStudies.CaseStudy1.services.BookingService
 
-object BookingController extends BaseController {
-  private val controllerComponents: ControllerComponents = stubControllerComponents()
+import javax.inject._
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
-  override protected def controllerComponents: ControllerComponents = controllerComponents
+@Singleton
+class BookingController @Inject()(cc: ControllerComponents, bookingService: BookingService) extends AbstractController(cc) {
 
-  def getAllBookings(): Action[AnyContent] = Action {
-    val bookings = BookingService.getAllBookings()
-    Ok(Json.toJson(bookings))
-  }
-
-  def getBooking(bookingId: String): Action[AnyContent] = Action {
-    BookingService.getBookingById(bookingId) match {
-      case Some(booking) => Ok(Json.toJson(booking))
-      case None          => NotFound(Json.obj("error" -> "Booking not found"))
+  def getAllBookings: Action[AnyContent] = Action.async {
+    bookingService.getAllBookings.map { bookings =>
+      Ok(Json.toJson(bookings))
     }
   }
 
-  def createBooking(): Action[JsValue] = Action(parse.json) { request =>
+  def getBookingById(id: String): Action[AnyContent] = Action.async {
+    bookingService.getBookingById(id).map {
+      case Some(booking) => Ok(Json.toJson(booking))
+      case None => NotFound(Json.obj("error" -> "Booking not found"))
+    }
+  }
+
+  def createBooking: Action[JsValue] = Action.async(parse.json) { request =>
     request.body.validate[Booking].fold(
-      errors => BadRequest(Json.obj("error" -> "Invalid booking data")),
-      booking => {
-        BookingService.createBooking(booking)
-        Created(Json.obj("message" -> "Booking created successfully"))
+      errors => Future.successful(BadRequest(Json.obj("error" -> "Invalid data"))),
+      booking => bookingService.createBooking(booking).map { _ =>
+        Created(Json.obj("message" -> "Booking created"))
       }
     )
   }
 
-  def deleteBooking(bookingId: String): Action[AnyContent] = Action {
-    if (BookingService.cancelBooking(bookingId)) Ok(Json.obj("message" -> "Booking canceled"))
-    else NotFound(Json.obj("error" -> "Booking not found"))
+  def deleteBooking(id: String): Action[AnyContent] = Action.async {
+    bookingService.deleteBooking(id).map {
+      case true => Ok(Json.obj("message" -> "Booking deleted"))
+      case false => NotFound(Json.obj("error" -> "Booking not found"))
+    }
   }
 }

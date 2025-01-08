@@ -1,17 +1,27 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.services
 
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Booking.Booking
+import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Booking
 import main.DayWiseTasks.CaseStudies.CaseStudy1.repositories.BookingRepository
 
-object BookingService {
-  def getAllBookings(): List[Booking] = BookingRepository.getAllBookings
+import javax.inject._
+import scala.concurrent.{ExecutionContext, Future}
 
-  def getBookingById(bookingId: String): Option[Booking] = BookingRepository.getBookingById(bookingId)
+@Singleton
+class BookingService @Inject()(bookingRepository: BookingRepository)(implicit ec: ExecutionContext) {
 
-  def createBooking(booking: Booking): Unit = BookingRepository.addBooking(booking)
+  def getAllBookings: Future[Seq[Booking]] = {
+    bookingRepository.getAllBookings
+  }
 
-  def updateBooking(bookingId: String, updatedBooking: Booking): Boolean =
-    BookingRepository.updateBooking(bookingId, updatedBooking)
+  def getBookingById(id: String): Future[Option[Booking]] = {
+    bookingRepository.getBookingById(id)
+  }
 
-  def cancelBooking(bookingId: String): Boolean = BookingRepository.deleteBooking(bookingId)
+  def createBooking(booking: Booking): Future[Unit] = {
+    bookingRepository.createBooking(booking)
+  }
+
+  def deleteBooking(id: String): Future[Boolean] = {
+    bookingRepository.deleteBooking(id)
+  }
 }

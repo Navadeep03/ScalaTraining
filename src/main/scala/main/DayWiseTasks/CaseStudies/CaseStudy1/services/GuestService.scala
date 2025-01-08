@@ -1,17 +1,27 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.services
 
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Guest.Guest
-import main.DayWiseTasks.CaseStudies.CaseStudy1.repositories.GuestRepository
+import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Guest
+import main.DayWiseTasks.CaseStudies.CaseStudy1.repositories.GuestRepository\
 
-object GuestService {
-  def getAllGuests(): List[Guest] = GuestRepository.getAllGuests
+import javax.inject._
+import scala.concurrent.{ExecutionContext, Future}
 
-  def getGuestById(guestId: String): Option[Guest] = GuestRepository.getGuestById(guestId)
+@Singleton
+class GuestService @Inject()(guestRepository: GuestRepository)(implicit ec: ExecutionContext) {
 
-  def addGuest(guest: Guest): Unit = GuestRepository.addGuest(guest)
+  def getAllGuests: Future[Seq[Guest]] = {
+    guestRepository.getAllGuests
+  }
 
-  def updateGuest(guestId: String, updatedGuest: Guest): Boolean =
-    GuestRepository.updateGuest(guestId, updatedGuest)
+  def getGuestById(id: String): Future[Option[Guest]] = {
+    guestRepository.getGuestById(id)
+  }
 
-  def deleteGuest(guestId: String): Boolean = GuestRepository.deleteGuest(guestId)
+  def addGuest(guest: Guest): Future[Unit] = {
+    guestRepository.addGuest(guest)
+  }
+
+  def deleteGuest(id: String): Future[Boolean] = {
+    guestRepository.deleteGuest(id)
+  }
 }

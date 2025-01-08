@@ -1,17 +1,27 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.services
 
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Room.Room
+import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Room
 import main.DayWiseTasks.CaseStudies.CaseStudy1.repositories.RoomRepository
 
-object RoomService {
-  def getAllRooms(): List[Room] = RoomRepository.getAllRooms
+import javax.inject._
+import scala.concurrent.{ExecutionContext, Future}
 
-  def getRoomById(roomId: String): Option[Room] = RoomRepository.getRoomById(roomId)
+@Singleton
+class RoomService @Inject()(roomRepository: RoomRepository)(implicit ec: ExecutionContext) {
 
-  def addRoom(room: Room): Unit = RoomRepository.addRoom(room)
+  def getAllRooms: Future[Seq[Room]] = {
+    roomRepository.getAllRooms
+  }
 
-  def updateRoom(roomId: String, updatedRoom: Room): Boolean =
-    RoomRepository.updateRoom(roomId, updatedRoom)
+  def getRoomById(id: String): Future[Option[Room]] = {
+    roomRepository.getRoomById(id)
+  }
 
-  def deleteRoom(roomId: String): Boolean = RoomRepository.deleteRoom(roomId)
+  def addRoom(room: Room): Future[Unit] = {
+    roomRepository.addRoom(room)
+  }
+
+  def deleteRoom(id: String): Future[Boolean] = {
+    roomRepository.deleteRoom(id)
+  }
 }

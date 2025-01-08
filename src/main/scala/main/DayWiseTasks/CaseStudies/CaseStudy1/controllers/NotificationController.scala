@@ -1,25 +1,27 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.controllers
 
+import main.DayWiseTasks.CaseStudies.FacilityManagement.services.NotificationService
+import main.DayWiseTasks.CaseStudies.CaseStudy2.models.Notification.Notification
 import play.api.mvc._
 import play.api.libs.json._
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Notification.Notification
-import main.DayWiseTasks.CaseStudies.CaseStudy1.services.NotificationService
 
-object NotificationController extends BaseController {
-  private val controllerComponents: ControllerComponents = stubControllerComponents()
+import javax.inject._
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
-  override protected def controllerComponents: ControllerComponents = controllerComponents
+@Singleton
+class NotificationController @Inject()(cc: ControllerComponents, notificationService: NotificationService) extends AbstractController(cc) {
 
-  def getAllNotifications(): Action[AnyContent] = Action {
-    val notifications = NotificationService.getAllNotifications()
-    Ok(Json.toJson(notifications))
+  def getAllNotifications: Action[AnyContent] = Action.async {
+    notificationService.getAllNotifications.map { notifications =>
+      Ok(Json.toJson(notifications))
+    }
   }
 
-  def sendNotification(): Action[JsValue] = Action(parse.json) { request =>
+  def sendNotification: Action[JsValue] = Action.async(parse.json) { request =>
     request.body.validate[Notification].fold(
-      errors => BadRequest(Json.obj("error" -> "Invalid notification data")),
-      notification => {
-        NotificationService.sendNotification(notification)
+      errors => Future.successful(BadRequest(Json.obj("error" -> "Invalid data"))),
+      notification => notificationService.sendNotification(notification).map { _ =>
         Created(Json.obj("message" -> "Notification sent"))
       }
     )

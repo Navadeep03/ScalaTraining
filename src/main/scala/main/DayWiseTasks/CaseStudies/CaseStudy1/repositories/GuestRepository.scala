@@ -1,30 +1,31 @@
 package main.DayWiseTasks.CaseStudies.CaseStudy1.repositories
 
-import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Guest.Guest
+import main.DayWiseTasks.CaseStudies.CaseStudy1.models.Guest
 
-import scala.collection.mutable
+import javax.inject._
+import org.mongodb.scala._
+import org.mongodb.scala.model.Filters._
 
-object GuestRepository {
-  private val guests = mutable.ListBuffer[Guest]()
+import scala.concurrent.{ExecutionContext, Future}
 
-  def getAllGuests: List[Guest] = guests.toList
+@Singleton
+class GuestRepository @Inject()(mongoClient: MongoClient)(implicit ec: ExecutionContext) {
+  private val database: MongoDatabase = mongoClient.getDatabase("FacilityDB")
+  private val collection: MongoCollection[Guest] = database.getCollection("guests")
 
-  def getGuestById(guestId: String): Option[Guest] = guests.find(_.guestId == guestId)
-
-  def addGuest(guest: Guest): Unit = guests += guest
-
-  def updateGuest(guestId: String, updatedGuest: Guest): Boolean = {
-    getGuestById(guestId).exists { guest =>
-      guests -= guest
-      guests += updatedGuest
-      true
-    }
+  def getAllGuests: Future[Seq[Guest]] = {
+    collection.find().toFuture()
   }
 
-  def deleteGuest(guestId: String): Boolean = {
-    getGuestById(guestId).exists { guest =>
-      guests -= guest
-      true
-    }
+  def getGuestById(id: String): Future[Option[Guest]] = {
+    collection.find(equal("id", id)).headOption()
+  }
+
+  def addGuest(guest: Guest): Future[Unit] = {
+    collection.insertOne(guest).toFuture().map(_ => ())
+  }
+
+  def deleteGuest(id: String): Future[Boolean] = {
+    collection.deleteOne(equal("id", id)).toFuture().map(_.wasAcknowledged())
   }
 }

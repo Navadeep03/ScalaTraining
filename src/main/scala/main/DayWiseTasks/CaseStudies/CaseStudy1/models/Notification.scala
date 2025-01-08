@@ -2,13 +2,14 @@ package main.DayWiseTasks.CaseStudies.CaseStudy1.models
 
 import play.api.libs.json._
 
-object Notification {
-  case class Notification(
-                           notificationId: String,
-                           recipientEmail: String,
-                           message: String,
-                           timestamp: String
-                         )
+case class Notification(
+                         id: String,
+                         recipient: String,
+                         message: String,
+                         timestamp: Long,
+                         status: String // e.g., "sent", "pending"
+                       )
 
-  implicit val notificationFormat: OFormat[Notification] = Json.format[Notification]
+object Notification {
+  implicit val format: Format[Notification] = Json.format[Notification]
 }
