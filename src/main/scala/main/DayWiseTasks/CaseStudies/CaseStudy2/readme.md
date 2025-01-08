@@ -97,3 +97,8 @@ Here’s a flowchart explaining the system’s workflow:
 3. `POST /notifications` - Send a new notification.
 4. `DELETE /notifications/:notificationId` - Delete a notification.
 
+Please find the expected output(s) at:
+src/main/scala/main/DayWiseTasks/CaseStudies/CaseStudy2/apiOutput/apiResponses.json
+src/main/scala/main/DayWiseTasks/CaseStudies/CaseStudy2/presentation/Case study 2.pdf
+src/main/scala/main/DayWiseTasks/CaseStudies/CaseStudy2/PostmanRequests/Screenshot 2025-01-06 at 1.33.03 PM.png
+src/main/scala/main/DayWiseTasks/CaseStudies/CaseStudy2/mongoDBCollection/mongoDB.json
