@@ -82,3 +82,9 @@ The data schema captures essential information for rooms, guests, and notificati
     - Sends updates to room service, WiFi, and restaurant teams.
 
 ---
+
+Please find the images and expected output(s) at:
+src/main/scala/main/DayWiseTasks/CaseStudies/CaseStudy1/PostmanRequests/Screenshot 2025-01-06 at 1.31.47 PM.png
+src/main/scala/main/DayWiseTasks/CaseStudies/CaseStudy1/presentation/Case study 1-2.pdf
+src/main/scala/main/DayWiseTasks/CaseStudies/CaseStudy1/mongoDBCollection/mongoDB.json
+src/main/scala/main/DayWiseTasks/CaseStudies/CaseStudy1/apiOutput/apiResponse.json
